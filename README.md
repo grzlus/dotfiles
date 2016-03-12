@@ -7,6 +7,7 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 mkdir ~/.vim/swp
 mkdir ~/.vim/undo
+vim +PlugInstall
 ```
 
 You need to precompile [YouCompleteMe](https://github.com/Valloric/YouCompleteMe) too.
