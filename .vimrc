@@ -51,6 +51,8 @@ map L :tabn<CR>
 
 map <Leader>S :Ag! <cword><CR>
 
+set pastetoggle=<F3>
+
 map <C-E> :VimFilerExplorer<CR>
 
 map <Leader>g :Gstatus<CR>
@@ -108,6 +110,7 @@ nmap ga <Plug>(EasyAlign)
 Plug 'duggiefresh/vim-easydir'
 
 Plug 'scrooloose/syntastic'
+let g:syntastic_ruby_checkers = ['mri', 'rubocop']
 
 Plug 'rking/ag.vim', { 'on': 'Ag' }
 Plug 'Lokaltog/vim-easymotion'
@@ -141,6 +144,18 @@ set laststatus=2
 Plug 'kien/ctrlp.vim', { 'on': 'CtrlP' }
 set wildignore+=*/.gem/*,*/vendor/Plug/*,*/tmp/*,log/*,*/tmp/*,*/public/system*,*.orig,*.o,*/public/assets*
 
+" The Silver Searcher
+if executable('ag')
+  " Use ag over grep
+  set grepprg=ag\ --nogroup\ --nocolor
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+
+  " ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching = 0
+endif
+
 Plug 'wikitopian/hardmode'
 
 " RAILS {{{
@@ -149,6 +164,7 @@ Plug 'slim-template/vim-slim', { 'for': 'slim' }
 Plug 'tpope/vim-haml', { 'for': 'haml' }
 Plug 'tpope/vim-rails'
 Plug 'grzlus/sass.snippet', { 'for': 'sass' }
+Plug 'tpope/vim-cucumber'
 
 Plug 'thoughtbot/vim-rspec'
 Plug 'benmills/vimux'
