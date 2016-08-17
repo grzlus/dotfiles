@@ -2,7 +2,6 @@ filetype off
 
 syntax on
 " Default config {{{
-set term=screen-256color
 set t_Co=256
 set ruler
 set ts=2 sts=2 sw=2
@@ -73,25 +72,21 @@ call plug#begin('~/.vim/plugged')
 
 " Autocomplete {{{
 Plug 'Valloric/YouCompleteMe'
-"Plug 'Shougo/neocomplete.vim'
-"Plug 'Shougo/neosnippet'
-"Plug 'Shougo/neosnippet-snippets'
+"
+" The Silver Searcher
+if executable('ag')
+  " Use ag over grep
+  set grepprg=ag\ --nogroup\ --nocolor
 
-"let g:acp_enableAtStartup = 0
-"" Use neocomplete.
-"let g:neocomplete#enable_at_startup = 1
-"" Use smartcase.
-"let g:neocomplete#enable_smart_case = 1
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 
-"imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-      "\ "\<Plug>(neosnippet_expand_or_jump)"
-      "\: pumvisible() ? "\<C-n>" : "\<TAB>"
-"smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-      "\ "\<Plug>(neosnippet_expand_or_jump)"
-      "\: "\<TAB>"
+  " ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching = 0
+endif
+
 " }}}
 
-"Plug 'blueyed/vim-colors-solarized'
 Plug 'jpo/vim-railscasts-theme'
 
 Plug 'dkprice/vim-easygrep'
@@ -124,14 +119,12 @@ Plug 'ntpeters/vim-better-whitespace'
 Plug 'terryma/vim-multiple-cursors'
 
 " Nerd {{{
-"Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'Shougo/unite.vim'
 Plug 'Shougo/vimfiler.vim', { 'on': 'VimFilerExplorer' }
 
-"let NERDTreeIgnore = ['\.o']
-
 Plug 'scrooloose/nerdcommenter'
 " }}}
+"
 Plug 'terryma/vim-expand-region'
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
@@ -143,18 +136,6 @@ set laststatus=2
 
 Plug 'kien/ctrlp.vim', { 'on': 'CtrlP' }
 set wildignore+=*/.gem/*,*/vendor/Plug/*,*/tmp/*,log/*,*/tmp/*,*/public/system*,*.orig,*.o,*/public/assets*
-
-" The Silver Searcher
-if executable('ag')
-  " Use ag over grep
-  set grepprg=ag\ --nogroup\ --nocolor
-
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-
-  " ag is fast enough that CtrlP doesn't need to cache
-  let g:ctrlp_use_caching = 0
-endif
 
 Plug 'wikitopian/hardmode'
 
@@ -173,8 +154,6 @@ let g:rspec_command = 'call VimuxRunCommand("bundle exec spring rspec {spec}")'
 map <Leader>t :call RunCurrentSpecFile()<CR>
 map <Leader>t :call RunAllSpecs()<CR>
 
-"Plug 'kana/vim-textobj-user'
-"Plug 'nelstrom/vim-textobj-rubyblock'
 " }}}
 
 Plug 'heartsentwined/vim-emblem', { 'for': 'emblem' }
@@ -185,8 +164,6 @@ Plug 'airblade/vim-gitgutter'
 
 Plug 'mattn/gist-vim', { 'on': 'Gist' }
 Plug 'mattn/webapi-vim', { 'on': 'Gist' }
-
-"Plug 'vim-utils/vim-ruby-fold'
 
 call plug#end()
 filetype plugin indent on
