@@ -37,7 +37,7 @@ set undolevels=1000
 set undoreload=10000
 set undofile
 
-let &colorcolumn="80,".join(range(120,999),",")
+let &colorcolumn="80,120"
 " }}}
 
 " Shortcuts {{{
@@ -70,6 +70,8 @@ map <Leader>H :s/:\([^ ]*\)\(\s*\)=>/\1:/g<CR>
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'sheerun/vim-polyglot'
+
 " Autocomplete {{{
 Plug 'Valloric/YouCompleteMe'
 "
@@ -92,6 +94,7 @@ Plug 'jpo/vim-railscasts-theme'
 Plug 'dkprice/vim-easygrep'
 
 Plug 'nathanaelkane/vim-indent-guides', { 'on': 'IndentGuidesToggle' }
+Plug 'Yggdroot/indentLine'
 
 Plug 'exu/pgsql.vim', { 'for': 'sql' }
 
@@ -137,7 +140,11 @@ set laststatus=2
 Plug 'kien/ctrlp.vim', { 'on': 'CtrlP' }
 set wildignore+=*/.gem/*,*/vendor/Plug/*,*/tmp/*,log/*,*/tmp/*,*/public/system*,*.orig,*.o,*/public/assets*
 
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+
 Plug 'wikitopian/hardmode'
+
+Plug 'tpope/vim-dispatch'
 
 " RAILS {{{
 Plug 'kchmck/vim-coffee-script'
@@ -150,9 +157,11 @@ Plug 'tpope/vim-cucumber'
 Plug 'thoughtbot/vim-rspec'
 Plug 'benmills/vimux'
 
-let g:rspec_command = 'call VimuxRunCommand("bundle exec spring rspec {spec}")'
+let g:rspec_command = 'call VimuxRunCommand("docker-compose run web rspec {spec}")'
 map <Leader>t :call RunCurrentSpecFile()<CR>
-map <Leader>t :call RunAllSpecs()<CR>
+map <Leader>s :call RunNearestSpec()<CR>
+map <Leader>l :call RunLastSpec()<CR>
+map <Leader>a :call RunAllSpecs()<CR>
 
 " }}}
 
@@ -168,9 +177,14 @@ Plug 'mattn/webapi-vim', { 'on': 'Gist' }
 call plug#end()
 filetype plugin indent on
 
+" set Vim-specific sequences for RGB colors
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+
 let g:solarized_termcolors=256
-colorscheme railscasts
+set termguicolors
 set background=dark
+colorscheme railscasts
 
 " VIM Flod {{{
 augroup vimrc
