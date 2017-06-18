@@ -71,6 +71,10 @@ Plug 'joker1007/vim-ruby-heredoc-syntax'
 Plug 'neomake/neomake'
 autocmd! BufWritePost * Neomake
 
+Plug 'scrooloose/nerdcommenter'
+
+Plug 'airblade/vim-gitgutter'
+
 call plug#end()
 
 set background=dark
