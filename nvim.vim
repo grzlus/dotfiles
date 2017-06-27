@@ -42,6 +42,8 @@ Plug 'junegunn/fzf.vim'
 map <C-p> :FZF<CR>
 map <Leader>g :GFiles?<CR>
 map <Leader>c :BCommits<CR>
+map <Leader>/ :exec 'BLines' expand('<cword>')<CR>
+map <Leader>? :exec 'Lines' expand('<cword>')<CR>
 
 Plug 'tpope/vim-fugitive'
 
