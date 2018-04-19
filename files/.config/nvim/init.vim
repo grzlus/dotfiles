@@ -1,9 +1,5 @@
-" config
-
-" syntax on
 set ruler
 set ts=2 sts=2 sw=2
-" set nocompatible
 set autoindent
 set number
 set backspace=2
@@ -16,17 +12,14 @@ set hid
 set lazyredraw
 set autoread
 set history=700
-"set relativenumber
-
-let &colorcolumn="80,120"
-
-" config end
-
+set nohlsearch
+set relativenumber
+let so=999
 let mapleader = ','
 
 map H :tabp<CR>
 map L :tabn<CR>
-
+"map <Leader>q :tabo|%bd|e#<CR>
 map <Leader>S :exec 'Ag' expand('<cword>')<CR>
 
 call plug#begin('~/.nvim/plugged')
@@ -47,13 +40,21 @@ map <Leader>? :exec 'Lines' expand('<cword>')<CR>
 
 Plug 'tpope/vim-fugitive'
 
+Plug 'tpope/vim-surround'
+
+Plug 'jiangmiao/auto-pairs'
+
 Plug 'sheerun/vim-polyglot'
+Plug 'tpope/vim-endwise'
 
 " Completion
-Plug 'roxma/nvim-completion-manager'
+"Plug 'roxma/nvim-completion-manager'
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " pip3 install --user neovim jedi mistune psutil setproctitle
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'fishbullet/deoplete-ruby'
+let g:deoplete#enable_at_startup = 1
 
 Plug 'Shougo/neco-syntax'
 
@@ -61,11 +62,20 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 let g:UltiSnipsExpandTrigger="<c-l>"
 
-
-Plug 'bling/vim-airline'
-let g:airline#extensions#tabline#enabled = 1
-let g:airline_powerline_fonts = 1
+Plug 'itchyny/lightline.vim'
 set laststatus=2
+set noshowmode
+let g:lightline = {
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'fugitive#head'
+      \ },
+      \ 'separator': { 'left': '', 'right': '' },
+      \ 'subseparator': { 'left': '', 'right': '' }  
+      \ }
 
 Plug 'Shougo/context_filetype.vim'
 Plug 'joker1007/vim-ruby-heredoc-syntax'
@@ -76,6 +86,9 @@ autocmd! BufWritePost * Neomake
 Plug 'scrooloose/nerdcommenter'
 
 Plug 'airblade/vim-gitgutter'
+
+Plug 'vimlab/split-term.vim'
+set splitbelow
 
 call plug#end()
 
