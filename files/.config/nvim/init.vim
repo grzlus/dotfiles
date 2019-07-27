@@ -14,13 +14,12 @@ set autoread
 set history=700
 set nohlsearch
 set relativenumber
-let so=999
+set so=999
 let mapleader = ','
 
 map H :tabp<CR>
 map L :tabn<CR>
 "map <Leader>q :tabo|%bd|e#<CR>
-map <Leader>S :exec 'Ag' expand('<cword>')<CR>
 
 call plug#begin('~/.nvim/plugged')
 
@@ -37,6 +36,7 @@ map <Leader>g :GFiles?<CR>
 map <Leader>c :BCommits<CR>
 map <Leader>/ :exec 'BLines' expand('<cword>')<CR>
 map <Leader>? :exec 'Lines' expand('<cword>')<CR>
+map <Leader>s :exec 'Ag' expand('<cword>')<CR>
 
 Plug 'tpope/vim-fugitive'
 
@@ -46,6 +46,8 @@ Plug 'jiangmiao/auto-pairs'
 
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-endwise'
+Plug 'dln/avro-vim'
+au BufRead,BufNewFile *.avdl setlocal filetype=avro-idl
 
 " Completion
 "Plug 'roxma/nvim-completion-manager'
@@ -57,6 +59,9 @@ Plug 'fishbullet/deoplete-ruby'
 let g:deoplete#enable_at_startup = 1
 
 Plug 'Shougo/neco-syntax'
+
+Plug 'Yggdroot/indentLine'
+let g:indentLine_enabled = 0
 
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
@@ -80,8 +85,10 @@ let g:lightline = {
 Plug 'Shougo/context_filetype.vim'
 Plug 'joker1007/vim-ruby-heredoc-syntax'
 
-Plug 'neomake/neomake'
-autocmd! BufWritePost * Neomake
+Plug 'w0rp/ale'
+let b:ale_ruby_rubocop_executable='docker-compose run --rm rubocop rubocop'
+"Plug 'neomake/neomake'
+"autocmd! BufWritePost * Neomake
 
 Plug 'scrooloose/nerdcommenter'
 
@@ -94,3 +101,7 @@ call plug#end()
 
 set background=dark
 colorscheme railscasts
+
+command! -bang -nargs=* Tmux
+  \ call fzf#complete(
+  \   { 'source': 'tmuxinator list'})
