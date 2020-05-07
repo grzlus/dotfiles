@@ -31,12 +31,15 @@ Plug 'jpo/vim-railscasts-theme'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
-map <C-p> :FZF<CR>
-map <Leader>g :GFiles?<CR>
+map <C-p> :GFiles<CR>
+map <Leader>p :GFiles?<CR>
+map <Leader><C-p> :FZF<CR>
 map <Leader>c :BCommits<CR>
 map <Leader>/ :exec 'BLines' expand('<cword>')<CR>
 map <Leader>? :exec 'Lines' expand('<cword>')<CR>
 map <Leader>s :exec 'Ag' expand('<cword>')<CR>
+
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
 
 Plug 'tpope/vim-fugitive'
 
