@@ -1,0 +1,8 @@
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: 3.4
+  Exclude:
+    - db/migrate/*
+    - db/schema.rb
+    - bin/*
+    - vendor/**/*
